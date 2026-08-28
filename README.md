@@ -1,8 +1,27 @@
-# Apollo for Neovim
+<h1 align="center">Neovim Apollo Theme</h1>
 
-Apollo is a high-contrast dark colorscheme derived from the canonical SonicTerm Apollo palette. It provides broad core UI, syntax, diff, diagnostic, LSP, and Neovim 0.12 Tree-sitter highlighting plus exact terminal ANSI colors. It does not depend on or style third-party plugins.
+<p align="center">Apollo brings a warm, high-contrast dark colorscheme to Neovim with native UI, syntax, diagnostic, LSP, Tree-sitter, and terminal coverage.</p>
 
-Repository: https://github.com/apollo-theme/nvim-apollo-theme
+<p align="center">
+  <a href="https://apollo-theme.github.io/#app-nvim"><img alt="Preview" src="https://img.shields.io/badge/Preview-open-fabd2f?style=flat-square&amp;labelColor=141617"></a>
+  <a href="https://github.com/apollo-theme/nvim-apollo-theme/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/apollo-theme/nvim-apollo-theme/ci.yml?branch=main&amp;style=flat-square&amp;label=CI&amp;color=b8bb26&amp;labelColor=141617"></a>
+  <a href="https://github.com/apollo-theme/nvim-apollo-theme/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/apollo-theme/nvim-apollo-theme?style=flat-square&amp;label=Release&amp;color=83a598&amp;labelColor=141617"></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-8ec07c?style=flat-square&amp;labelColor=141617"></a>
+  <a href="https://neovim.io/"><img alt="Target: Neovim" src="https://img.shields.io/badge/target-Neovim-d3869b?style=flat-square&amp;labelColor=141617"></a>
+  <a href="palette/apollo.json"><img alt="Canonical Apollo palette" src="https://img.shields.io/badge/palette-canonical-fabd2f?style=flat-square&amp;labelColor=141617"></a>
+</p>
+
+<p align="center">
+  <a href="https://apollo-theme.github.io/#app-nvim"><img alt="Simulated preview of Apollo in Neovim" src="https://raw.githubusercontent.com/apollo-theme/apollo-theme.github.io/main/previews/nvim.svg" width="960"></a>
+</p>
+<p align="center"><sub><strong>Simulated preview.</strong> Font, terminal, and syntax rendering may vary; Apollo remains native and plugin-neutral.</sub></p>
+
+## Highlights
+
+- Core Neovim UI, syntax, diff, diagnostic, and LSP highlighting.
+- Neovim 0.12 Tree-sitter captures and exact terminal ANSI colors.
+- Generated Lua entry point, palette data, and implementation with no runtime dependencies.
+- Plugin-neutral scope: Apollo does not depend on or style third-party plugins.
 
 ## Install
 
@@ -36,6 +55,14 @@ If your plugin manager does not activate the theme, add this to `init.lua`:
 vim.cmd.colorscheme('apollo')
 ```
 
+## Visual verification
+
+Open a syntax-rich buffer and confirm that normal source is warm and readable on the near-black canvas, active and search cues are gold, comments remain visibly muted, and diagnostics, diff states, and Tree-sitter captures remain distinct. To verify the colorscheme loads cleanly with representative highlights and terminal colors, run:
+
+```sh
+nvim --headless --clean -u NONE -l tests/headless.lua
+```
+
 ## Uninstall
 
 For lazy.nvim, remove the plugin spec and run `:Lazy clean`. For the manual package:
@@ -46,15 +73,26 @@ rm -rf ~/.local/share/nvim/site/pack/apollo/start/nvim-apollo-theme
 
 Then remove the `colorscheme` call from your configuration.
 
-## Development
+## Develop and validate
 
-`palette/apollo.json` is an exact palette snapshot. Regenerate the Lua files and run every check with:
+`palette/apollo.json` is the exact canonical palette snapshot. All shipped Lua files are deterministic generated output and must not be edited directly. Build and run the full validation set from the repository root:
 
 ```sh
 python3 scripts/generate.py
+python3 scripts/generate.py --check
+python3 -m compileall -q scripts tests
 python3 scripts/check.py
 ```
 
+Run the focused Python and clean editor checks with:
+
+```sh
+python3 -m unittest tests.test_theme.ThemeTests.test_generated_theme_is_current
+nvim --headless --clean -u NONE -l tests/headless.lua
+```
+
+Only Python's standard library is used by the build and check scripts.
+
 ## License
 
-MIT
+[MIT](LICENSE).
