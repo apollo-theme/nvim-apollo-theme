@@ -15,9 +15,9 @@ Only Python's standard library is allowed for build and check scripts.
 
 ## Architecture
 
-- `palette/apollo.json` is the exact canonical palette snapshot and source of truth.
-- `scripts/generate.py` validates the snapshot hash/schema and deterministically owns all shipped Lua files.
-- `colors/apollo.lua` is the colorscheme entry point; `lua/apollo/palette.lua` and `lua/apollo/init.lua` hold generated palette data and implementation.
+- `palette/apollo.json` and `palette/apollo-light.json` are exact canonical snapshots.
+- `scripts/generate.py` validates both snapshot hashes/schemas and deterministically owns all six shipped Lua files.
+- `colors/apollo.lua` keeps `require('apollo').load()` as the dark default; `colors/apollo-light.lua` loads separate generated light palette/implementation modules. Preserve existing dark Lua bytes.
 - `scripts/check.py` runs drift, unit, canonical-color, and clean headless Neovim checks.
 - `tests/test_theme.py` guards snapshot identity, deterministic output, and obsolete colors.
 - `tests/headless.lua` verifies loading, representative highlights, current Tree-sitter links, and terminal ANSI globals.

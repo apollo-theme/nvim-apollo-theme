@@ -1,6 +1,6 @@
 <h1 align="center">Neovim Apollo Theme</h1>
 
-<p align="center">Apollo brings a warm, high-contrast dark colorscheme to Neovim with native UI, syntax, diagnostic, LSP, Tree-sitter, and terminal coverage.</p>
+<p align="center">Apollo brings warm, high-contrast dark and light colorschemes to Neovim with native UI, syntax, diagnostic, LSP, Tree-sitter, and terminal coverage.</p>
 
 <p align="center">
   <a href="https://apollo-theme.github.io/#app-nvim"><img alt="Preview" src="https://img.shields.io/badge/Preview-open-fabd2f?style=flat-square&amp;labelColor=141617"></a>
@@ -13,6 +13,7 @@
 
 <p align="center">
   <a href="https://apollo-theme.github.io/#app-nvim"><img alt="Simulated preview of Apollo in Neovim" src="https://raw.githubusercontent.com/apollo-theme/apollo-theme.github.io/main/previews/nvim.svg" width="960"></a>
+  <a href="https://apollo-theme.github.io/#app-nvim-light"><img alt="Simulated preview of Apollo Light in Neovim" src="https://raw.githubusercontent.com/apollo-theme/apollo-theme.github.io/main/previews/nvim-light.svg" width="960"></a>
 </p>
 <p align="center"><sub><strong>Simulated preview.</strong> Font, terminal, and syntax rendering may vary; Apollo remains native and plugin-neutral.</sub></p>
 
@@ -55,9 +56,11 @@ If your plugin manager does not activate the theme, add this to `init.lua`:
 vim.cmd.colorscheme('apollo')
 ```
 
+Use `vim.cmd.colorscheme('apollo-light')` for the light variant. `require('apollo').load()` remains the dark default.
+
 ## Visual verification
 
-Open a syntax-rich buffer and confirm that normal source is warm and readable on the near-black canvas, active and search cues are gold, comments remain visibly muted, and diagnostics, diff states, and Tree-sitter captures remain distinct. To verify the colorscheme loads cleanly with representative highlights and terminal colors, run:
+Open a syntax-rich buffer in both variants. Apollo should use `#cfbc97` on `#141617`; Apollo Light should use `#3c3836` on `#f9f5d7`. Confirm active/search cues, comments, diagnostics, diff states, and Tree-sitter captures remain distinct. To verify the colorscheme loads cleanly with representative highlights and terminal colors, run:
 
 ```sh
 nvim --headless --clean -u NONE -l tests/headless.lua
@@ -71,11 +74,11 @@ For lazy.nvim, remove the plugin spec and run `:Lazy clean`. For the manual pack
 rm -rf ~/.local/share/nvim/site/pack/apollo/start/nvim-apollo-theme
 ```
 
-Then remove the `colorscheme` call from your configuration.
+Then remove the `apollo` or `apollo-light` colorscheme call from your configuration.
 
 ## Develop and validate
 
-`palette/apollo.json` is the exact canonical palette snapshot. All shipped Lua files are deterministic generated output and must not be edited directly. Build and run the full validation set from the repository root:
+Both files under `palette/` are exact canonical snapshots. All shipped Lua files are deterministic generated output and must not be edited directly. Build and run the full validation set from the repository root:
 
 ```sh
 python3 scripts/generate.py
